@@ -1,6 +1,14 @@
 #!/bin/sh
 set -e
 
+# Read password from Docker secret
+if [ -f /run/secrets/crypt_password ]; then
+    CRYPT_PASSWORD=$(cat /run/secrets/crypt_password)
+else
+    echo "Error: /run/secrets/crypt_password not found"
+    exit 1
+fi
+
 # Obscure the password for rclone config
 OBSCURED_PASSWORD=$(rclone obscure "$CRYPT_PASSWORD")
 
