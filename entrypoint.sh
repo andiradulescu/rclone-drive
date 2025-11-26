@@ -29,12 +29,9 @@ filename_encryption = standard
 directory_name_encryption = true
 EOF
 
-echo "Starting rclone WebDAV server on port 8080..."
-exec rclone serve webdav crypt: \
-    --addr :8080 \
+echo "Starting rclone NFS server on port 2049..."
+exec rclone serve nfs crypt: \
+    --addr :2049 \
     --vfs-cache-mode full \
     --buffer-size 64M \
-    --dir-cache-time 72h \
-    --log-level INFO \
-    --user rclone \
-    --pass rclone
+    --dir-cache-time 72h
